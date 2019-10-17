@@ -37,6 +37,48 @@ namespace dataBaseCRUD
                 Console.WriteLine(ex.Message);
             }
         }
+
+        public void updateUser(userModel u)
+        {
+            try
+            {
+                connection = new MySqlConnection(dbWay);
+                connection.Open();
+
+                //string updade = "UPDATE users SET userName=" +"'"+u.Name+"'"+ ",saldo = "+" ' "+u.Balance+".0' WHERE id = "+u.Id;
+                string update = "UPDATE users SET userName='"+u.Name+"',saldo="+u.Balance+" WHERE id="+u.Id+"";
+                
+
+
+                MySqlCommand cmd = new MySqlCommand(update, connection);
+                cmd.ExecuteNonQuery();
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void deleteUser(int userId)
+        {
+            try
+            {
+                connection = new MySqlConnection(dbWay);
+                connection.Open();
+
+                string delete = "DELETE FROM users WHERE id="+userId+"";
+
+                var cmd = new MySqlCommand(delete, connection);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         public List<userModel> loadAll()
         {
             List<userModel> users = new List<userModel>();
